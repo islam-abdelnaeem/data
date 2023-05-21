@@ -1,0 +1,119 @@
+#include <iostream>
+using namespace std;
+#include <stdlib.h>
+#define SIZE 15
+int top=-1,a[SIZE];
+void push (int item)
+{
+if (top==SIZE-1)
+{cout<<"over flow"<<endl;return;}
+
+top+=1;
+a[top]=item;
+
+}
+ void pop ()
+{
+if (top==-1)
+{cout<<"empty no thig to poped from stack"<<endl;return;}
+ 
+
+cout<<"opoped element is  "<<a[top]<<endl;
+
+top-=1;
+
+}
+
+
+int search (int item)
+{
+if (top==-1){
+cout<<"empty  stack"<<endl;
+return -1;
+}
+
+for(int i=0;i<=top;i++)
+if (a[i]==item )
+return i;
+return -1;} 
+
+int size ()
+{
+if (top==-1)
+{cout<<"empty stack"<<endl;
+return 0;}
+else return top+1;}
+
+void maxmium()
+{int max, pos;
+
+if (top==-1)
+{cout<<"empty stack"<<endl;
+return;}
+
+max=a[0];
+pos=0;
+for (int i=1;i<=top;i++)
+if (a[i]>max)
+{max=a[i];
+pos=i;}
+
+cout<<"max element of the stack is "<<max<<"and it's position is "<<pos<<endl;
+}
+
+
+
+void display ()
+{
+if (top==-1)
+{cout<<"empty stack"<<endl;
+return ;}
+
+for (int i=0;i<=top;i++)
+cout<<a[i]<<"\t";
+cout<<endl;
+
+}
+int main()
+{
+int ch ,item ,index,data ;
+cout<<"\n 1- push \n2-pop\n3-size \n4- seach \n5-maxmium \n 6-exit"<<endl;
+
+do{
+cout<<"enter your choice"<<endl;
+cin >>ch;
+switch(ch)
+{case 1:
+cout<<"enter elment to push in the stack"<<endl;
+cin >>item;
+push(item);
+display();
+break;
+case 2:
+pop();
+display();
+break;
+case 3:
+cout<<"the size of the stack is "<<size()<<endl;
+break;
+case 4:
+cout<<"enter item to be searched in the stack "<<endl;
+cin>>data;
+index=search (data);
+if (index==-1)
+cout<<"not found";
+else 
+cout<<"item found at index "<<index<<endl;
+break;
+case 5:maxmium();
+break;
+case 6:
+exit(0);
+break;
+default:
+cout<<"in valid choice"<<endl;
+break;}
+
+}while (ch!=6);
+return 0;
+}

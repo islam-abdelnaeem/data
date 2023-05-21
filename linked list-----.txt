@@ -1,0 +1,186 @@
+
+#include <iostream>
+	using namespace std;
+#include<stdlib.h>
+struct node
+{
+	int number;
+	node* next;
+};
+//Make new node
+node* make_new_node(int x)
+{
+	node* p;
+	p = new node;
+	p->number = x;
+	p->next = NULL;
+	return p;
+}
+//Insert in begining
+node* insert_begin(node* p)
+{
+	int x;
+	cout << "Enter value in new node \n";
+	cin >> x;
+	node* temp;
+	if (p == NULL)
+		p = make_new_node(x);
+	else
+	{
+	temp = make_new_node(x);
+	temp->next = p; p = temp;
+}
+	return p;
+}
+//insert in last
+node* insert_last(node* p)
+{
+	int x;
+	cout << "Enter value in new node \n";
+	cin >> x;
+	node* curr, * temp;
+	if (p == NULL)
+		p = make_new_node(x);
+	else
+	{
+		curr = p;
+		while (curr->next != NULL)
+			curr = curr->next;
+		temp = make_new_node(x);
+		curr->next = temp;
+	}
+	return p;
+}
+// insert value (x) after a node contain the value (n) or in last if (n) is not exist
+node* insert_middle(node* p, int n)
+{
+	int x;
+	cout << "Enter value in new node \n";
+	cin >> x;
+	node* curr, * temp;
+	if (p == NULL)
+		p = make_new_node(x);
+	else {
+		curr = p;
+		while (curr->number != n && curr->next != NULL)
+			curr = curr->next;
+		temp = make_new_node(x);
+		temp->next = curr->next;
+		curr->next = temp;
+	}
+	return p;
+}
+//Delete first node
+node* delete_first(node* p)
+{
+	if (p == NULL)
+		cout << "No nodes found \n";
+	else
+	{
+		node* first;
+		first = p;
+		p = p->next;
+		delete first;
+	}
+	return p;
+}
+//Delete last node
+node* delete_last(node* p)
+{
+	node* curr, * d;
+	if (p == NULL)
+		cout << "No nodes found \n";
+	curr = p;
+	while (curr->next->next != NULL)curr = curr->next;
+	d = curr->next;
+	curr->next = NULL;
+	delete d;
+	return p;
+}
+//Delete "node" after the node contains the value (n) or last node if n is not exist
+node* delete_middle(node* p, int m)
+{
+	node* curr, * d;
+	curr = p;
+	while (curr->next->number != m && curr->next->next != NULL)
+		curr = curr->next;
+	d = curr->next;
+	curr->next = d->next;
+	delete d;
+	return p;
+}
+//Display (print) node elements
+void display_list(node* p)
+{
+	node* curr;
+	if (p == NULL)
+		cout << "No nodes found \n";
+	else
+	{
+		cout << "\n Data in the nodes are:\n";
+		curr = p;
+		while (curr != NULL)
+		{
+			cout << curr->number << "\n";
+			curr = curr->next;
+		}
+	}
+}
+//search
+void search_value(node *p, int key)
+{
+	int i = 0, flag = 0;
+	node* curr;
+	if (p == NULL)
+		cout << "No nodes found \n";
+	else
+	{
+		curr = p;
+		while(curr!=NULL)
+		{if (curr->number==key) 
+		{
+			cout << "Item " << key << " is found at location " << (i + 1)<<endl;
+			flag = 1;
+			break;
+		}
+		i++;
+		curr = curr->next;
+		}
+		if (flag == 0)
+			cout << "Item " << key << " is not found." << endl;
+	}
+}
+int main()
+{
+	node* p;
+	p = NULL;
+	int ch;
+	int x, n, m, key;
+	cout << "\n 1.Make a node. \n 2.Insert first. \n 3.Insert last. \n 4.Insert middle. \n 5.Delete first. \n 6.Delete last. \n 7.Delete middle. \n 8.Display \n 9.Search \n 10.Exitprogram \n";
+		do {
+			cout << "Enter your choice";
+			cin >> ch;
+			switch (ch)
+			{
+			case 1: cout << "Enter x value to make a new node. \n";
+				cin >> x;
+				p = make_new_node(x); break;
+			case 2: p = insert_begin(p); break;
+			case 3: p = insert_last(p); break;
+			case 4: cout << "\n Enter a value (n) to insert a node middle after it: ";
+				cin >> n;
+				p = insert_middle(p, n); break;
+			case 5: p = delete_first(p); break;
+			case 6: p = delete_last(p); break;
+			case 7:cout << "\n Enter a value of (m) to delete a middle node: ";
+				cin >> m;
+				p = delete_middle(p, m); break;
+			case 8: display_list(p); break;
+			case 9: cout << "\n Enter key value to search:"; cin >> key;
+				search_value(p, key); break;
+			case 10: exit(0); break;
+			default: cout << "\n Invalid choice.";
+			}
+		} while (ch != 10);
+		return 0;
+}

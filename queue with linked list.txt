@@ -1,0 +1,109 @@
+//queue with linked list
+
+#include <iostream>
+using namespace std;
+#include<stdlib.h>
+struct node
+{
+	int number;
+	node* next;
+};
+//Make new node
+node* make_new_node(int x)
+{
+	node* p;
+	p = new node;
+	p->number = x;
+	p->next = NULL;
+	return p;
+}
+//insert in last
+node* insert_last_enqueue(node* p)
+{
+	int x;
+	cout << "Enter value in new node \n";
+	cin >> x;
+	node* curr, * temp;
+	if (p == NULL)
+		p = make_new_node(x);
+	else
+	{
+		curr = p;
+		while (curr->next != NULL)
+			curr = curr->next;
+		temp = make_new_node(x);
+		curr->next = temp;
+	}
+	return p;
+}
+
+//Delete first node
+node* delete_first_dequeue(node* p)
+{
+	if (p == NULL)
+		cout << "No nodes found \n";
+	else
+	{
+		node* first;
+		first = p;
+		p = p->next;
+		delete first;
+	}
+	return p;
+}
+
+//Display (print) node elements
+void display_list(node* p)
+{
+	node* curr;
+	if (p == NULL)
+		cout << "No nodes found \n";
+	else
+	{
+		cout << "\n Data in the nodes are:\n";
+		curr = p;
+		while (curr != NULL)
+		{
+			cout << curr->number << "\n";
+			curr = curr->next;
+		}
+	}
+}
+
+//count -- size
+int count(node* p)
+{
+	node* curr;
+	if (p == NULL)
+		return 0;
+	else
+	{
+		int i = 0;
+		curr = p;
+		while (curr!=NULL)
+		{
+			curr = curr->next;
+			i++;
+		}
+		return i;
+	}
+}
+
+int main()
+{
+	node* p;
+	p = NULL;
+	
+	p = make_new_node(1); 
+	display_list(p);
+	p = insert_last_enqueue(p);
+	display_list(p); 
+	p = insert_last_enqueue(p);
+	display_list(p);  //1 2 3
+	cout << "\n Size= " << count(p);
+	p = delete_first_dequeue(p);
+	display_list(p);   //2 3
+	cout << "\n Size= " << count(p);
+		
+	return 0;
+}

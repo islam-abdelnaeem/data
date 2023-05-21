@@ -1,0 +1,143 @@
+								Queue 				
+
+#include <iostream>
+using namespace std;
+//Write a program to implement queue operation with array, by creating the following functions (enqueue - dequeue - search - find max - calc the size of queue - print the items)
+#define size 10
+int a[size], front =-1,rear = -1;
+//Add items
+void enQueue(int item)
+{
+    if(rear == (size - 1))
+    {
+        cout<<"The Queue is full\n";
+        return ;
+    }
+    rear ++;
+    a[rear] = item;
+    if(front ==-1)
+    {
+        front ++;
+    }
+}
+//Delete Items
+void deQueue()
+{
+    if( front== -1)
+    {
+        cout<<"The Que is Empty\n";
+        return;
+    }
+    cout<<"Deleted item from Queue is: "<<a[front]<<endl;;
+    if(front == rear)
+        front = rear = -1;
+    else
+        front ++;
+}
+//search an item
+int Search(int key)
+{
+    if( front== -1)
+    {
+        cout<<"The Que is Empty\n";
+        return -1;
+    }
+    for(int i = front ; i<= rear ; i++)
+    {
+        if(a[i] == key)
+            return i;
+        return -1;
+    }
+}
+// calculate size
+int Size()
+{
+    if( front== -1)
+    {
+        cout<<"The Que is Empty\n";
+        return 0;
+    }
+    else return rear - front +1;
+}
+
+void findMax()
+{
+    if( front== -1)
+    {
+        cout<<"The Que is Empty\n";
+        return;
+    }
+    int max, pos, i;
+    max= a[front];
+    pos = front;
+    for(i=front; i<= rear; i++)
+    {
+        if(a[i]>max)
+        {
+            max = a[i];
+            pos = i;
+        }
+    }
+    cout<<"\nThe max value in Queue is: "<<max<<" and its position : "<<pos;
+}
+
+void display ()
+{
+    if(front == -1)
+    {
+        cout<<"Queue is Empty\n";
+        return;
+    }
+    cout<<"Elements of Queue are: \n";
+
+    for(int i=front; i<=rear; i++)
+        cout<<a[i]<<"\t";
+}
+
+int main()
+{
+    int ch, NV,key,index;
+    cout<<"1. EnQueue\n2. DeQueue\n3. Search\n4. Size\n5. Maximum\n6. Exit\n";
+    cin>>ch;
+    do
+    {
+        cout<<"Enter Your Choice: ";
+        cin>>ch;
+        switch(ch)
+        {
+        case 1:
+            cout<<"Enter New data to add in Queue\n";
+            cin>>NV;
+            enQueue(NV);
+            display();
+            break;
+        case 2:
+            deQueue();
+            display();
+            break;
+        case 3:
+            cout<<"Enter the Value Key to search\n";
+            cin>>key;
+            index = Search(key);
+            if(index >= 0)
+                cout<<"The element "<<key<<" is Found at position: "<<index;
+            else
+                cout<<"The element"<<key<<"is not Found in Queue\n";
+            break;
+        case 4:
+            cout<<"\nThe Size (no. of Elements in Queue) is: "<<Size();
+            break;
+        case 5:
+            findMax();
+            break;
+        case 6:
+            exit(0);
+            break;
+        default:
+            cout<<"\n Invalid Choice. \n";
+        }
+    }
+    while(ch!=6);
+    return 0;
+}
+
